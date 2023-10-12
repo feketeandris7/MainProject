@@ -4,22 +4,9 @@
 
 .header-small-spacer {
   margin-left: 100px;
-  font-size: large;
+  font-size: xx-large;
 }
 
-.example-container {
-  width: 100%;
-  /* display: flex important!; */
-  height: 100%;
-}
-
-.example-sidenav-content {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
-.example-sidenav {
-  padding: 20px;
+.base-container {
+  background-color: #99e6ff;
 }

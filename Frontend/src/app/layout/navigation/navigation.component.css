@@ -1,0 +1,10 @@
+.nav-container {
+  height: 100%;
+}
+
+.nav-content {
+  padding: 5px;
+  width: 150px;
+  text-align: center;
+  font-size: x-large;
+}
