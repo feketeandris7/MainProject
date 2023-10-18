@@ -4,7 +4,8 @@
 Table user {
   id integer [primary key, increment]
   username varchar
-  role_id varchar
+  email varchar
+  password varchar
   active bit
   crd timestamp
   cru integer
@@ -22,6 +23,17 @@ Table role {
   lmu integer
 }
 
+Table user_role {
+  id integer [primary key, increment]
+  user_id integer
+  role_id integer
+  active bit
+  crd timestamp
+  cru integer
+  lmd timestamp
+  lmu integer
+}
+
 Table transaction {
   id integer [primary key, increment]
   listing_id integer
@@ -30,6 +42,7 @@ Table transaction {
   date_to timestamp
   rental_length_discount_id integer
   loyalty_discount_id integer
+  chassis_number varchar
   active bit
   crd timestamp
   cru integer
@@ -92,7 +105,6 @@ Table vehicle {
   transmission_id integer
   mileage integer
   consumption integer
-  image_id integer [null]
   active bit
   crd timestamp
   cru integer
@@ -103,6 +115,17 @@ Table vehicle {
 Table image{
   id integer [primary key, increment]
   image_binary binary
+  active bit
+  crd timestamp
+  cru integer
+  lmd timestamp
+  lmu integer
+}
+
+Table image_listing{
+  id integer [primary key, increment]
+  listing_id integer
+  image_id integer
   active bit
   crd timestamp
   cru integer
@@ -124,7 +147,7 @@ Table engine {
 Table model {
   id integer [primary key, increment]
   type varchar
-  power integer
+  make_id integer
   active bit
   crd timestamp
   cru integer
@@ -135,7 +158,6 @@ Table model {
 Table make {
   id integer [primary key, increment]
   type varchar
-  power integer
   active bit
   crd timestamp
   cru integer
@@ -146,7 +168,6 @@ Table make {
 Table transmission {
   id integer [primary key, increment]
   type varchar
-  power integer
   active bit
   crd timestamp
   cru integer
@@ -175,8 +196,6 @@ Ref: "model"."id" < "vehicle"."model_id"
 
 Ref: "make"."id" < "vehicle"."make_id"
 
-Ref: "role"."id" <> "user"."role_id"
-
 Ref: "transaction"."customer_id" > "user"."id"
 
 Ref: "vehicle"."id" < "listing"."vehicle_id"
@@ -189,4 +208,10 @@ Ref: "transaction"."rental_length_discount_id" > "rental_length_discount"."id"
 
 Ref: "transaction"."loyalty_discount_id" > "loyalty_discount"."id"
 
-Ref: "vehicle"."image_id" <> "image"."id"
+Ref: "image_listing"."image_id" > "image"."id"
+
+Ref: "user"."id" < "user_role"."user_id"
+
+Ref: "role"."id" < "user_role"."role_id"
+
+Ref: "listing"."id" < "image_listing"."listing_id"
